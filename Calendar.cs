@@ -197,7 +197,7 @@ namespace KCalendar
         {
             if (calendarDate == null) throw new ArgumentNullException(nameof(calendarDate));
             var gd = (GregorianDate)calendarDate.CastTo(new GregorianDate());
-            var dt = new DateTime(gd.Year, gd.Month, gd.Day, CultureInfo.GetCultureInfo("en-US").Calendar);
+            var dt = new DateTime(gd.Year, gd.Month, gd.Day);
             return dt;
         }
 
