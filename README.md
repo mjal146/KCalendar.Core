@@ -9,7 +9,7 @@ Installation
 
 Install the dependencies and devDependencies and start the server.
 
-    Install-Package KCalendar
+    Install-Package KCalendar.Core
 
 Getting Started
 ---------------
