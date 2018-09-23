@@ -1,5 +1,4 @@
 # KCalendar.Core
-KCalendar
 --------------------
 This is a library for converting Gregorian date  and Persian date (Jalali) and Hijri (Islamic) date into each other.
 
