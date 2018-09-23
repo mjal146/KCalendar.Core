@@ -2,7 +2,12 @@
 
     <PropertyGroup>
         <LangVersion>6</LangVersion>
-        <TargetFrameworks>netstandard1.0;netcoreapp1.0;netcoreapp2.1</TargetFrameworks>
+        <Description>This is a library for converting Gregorian date and Persian date (Jalali) and Hijri (Islamic) date into each other.
+
+        </Description>
+        <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+        <PackageTags>Calendar; Jalali; Persian-date</PackageTags>
+        <TargetFramework>netcoreapp1.0</TargetFramework>
     </PropertyGroup>
 
 </Project>
