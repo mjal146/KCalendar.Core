@@ -1,9 +1,0 @@
-G:\Projects\dotNet\KCalendar\KCalendar.Core\bin\Debug\netcoreapp2.1\KCalendar.Core.deps.json
-G:\Projects\dotNet\KCalendar\KCalendar.Core\bin\Debug\netcoreapp2.1\KCalendar.Core.dll
-G:\Projects\dotNet\KCalendar\KCalendar.Core\bin\Debug\netcoreapp2.1\KCalendar.Core.pdb
-G:\Projects\dotNet\KCalendar\KCalendar.Core\obj\Debug\netcoreapp2.1\KCalendar.Core.csprojAssemblyReference.cache
-G:\Projects\dotNet\KCalendar\KCalendar.Core\obj\Debug\netcoreapp2.1\KCalendar.Core.csproj.CoreCompileInputs.cache
-G:\Projects\dotNet\KCalendar\KCalendar.Core\obj\Debug\netcoreapp2.1\KCalendar.Core.AssemblyInfoInputs.cache
-G:\Projects\dotNet\KCalendar\KCalendar.Core\obj\Debug\netcoreapp2.1\KCalendar.Core.AssemblyInfo.cs
-G:\Projects\dotNet\KCalendar\KCalendar.Core\obj\Debug\netcoreapp2.1\KCalendar.Core.dll
-G:\Projects\dotNet\KCalendar\KCalendar.Core\obj\Debug\netcoreapp2.1\KCalendar.Core.pdb

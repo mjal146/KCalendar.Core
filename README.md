@@ -104,6 +104,7 @@ Way 1 :
     persianDate.toString(DateFormat.Date);// 1396/09/23
     persianDate.toString(DateFormat.ShortDate);// 09/23
 
+
 **Islamic date**
 
     islamicDate.toString(DateFormat.FullDate);//الخمیس‬ ٢٥ ربيع الاول ١٤٣٩
