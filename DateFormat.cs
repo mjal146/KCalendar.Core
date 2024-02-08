@@ -1,4 +1,4 @@
-﻿namespace KCalendar
+﻿namespace KCalendar.Core
 {
     public enum DateFormat
     {

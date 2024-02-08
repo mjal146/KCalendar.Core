@@ -1,6 +1,8 @@
-﻿namespace KCalendar.Culture
+﻿using KCalendar.Core.Contract;
+
+namespace KCalendar.Core.Culture
 {
-    class IslamicCalendarCulture : CalendarCulture
+    internal class IslamicCalendarCulture : CalendarCulture
     {
         public IslamicCalendarCulture()
         {

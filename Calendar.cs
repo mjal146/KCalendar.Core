@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Globalization;
-using KCalendar.Culture;
+using KCalendar.Core.Contract;
+using KCalendar.Core.Culture;
 
-namespace KCalendar
+namespace KCalendar.Core
 {
     public abstract class Calendar : PositionalAstronomy, ICalendar
     {
-
         protected Calendar()
         {
             Init();
         }
+
         protected Calendar(int year, int month, int day)
             : this()
         {
@@ -19,6 +20,7 @@ namespace KCalendar
             Month = CalendarCulture.GetMonth(month);
             Day = day;
         }
+
         protected Calendar(double julianNumber)
             : this()
         {
@@ -26,10 +28,14 @@ namespace KCalendar
         }
 
         protected Calendar(ICalendar iCalendar)
-            : this(iCalendar.DateToJulian()) { }
+            : this(iCalendar.DateToJulian())
+        {
+        }
 
-        protected Calendar(DateTime dateTime) : this(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond)
-        { }
+        protected Calendar(DateTime dateTime) : this(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second,
+            dateTime.Millisecond)
+        {
+        }
 
         protected Calendar(int year, int month, int day, int hour, int minute, int second) : this()
         {
@@ -40,6 +46,7 @@ namespace KCalendar
             Minute = minute;
             Second = second;
         }
+
         protected Calendar(int year, int month, int day, int hour, int minute, int second, int millisecond) : this()
         {
             Year = year;
@@ -52,6 +59,7 @@ namespace KCalendar
         }
 
         #region Property
+
         public virtual int Year { get; set; }
         public virtual IMonth Month { get; set; }
 
@@ -81,10 +89,11 @@ namespace KCalendar
 
         public abstract int DayOfYear { get; }
 
-        public IWeek DayofWeek => CalendarCulture.GetWeekDay((int)(Math.Ceiling(Math.Floor((JulianDay + 1.5)) % 7)) + 1);
+        public IWeek DayOfWeek => CalendarCulture.GetWeekDay((int)(Math.Ceiling(Math.Floor((JulianDay + 1.5)) % 7)) + 1);
 
         public abstract ICalendarLeap LeapAlgorithm { get; set; }
         public abstract ICalendar JulianToDate(double julianNumber);
+
         public ICalendar AddDay(int day)
         {
             var j = JulianDay + day;
@@ -108,6 +117,7 @@ namespace KCalendar
         }
 
         #region addMonth
+
         /// <summary>
         /// Add or minus some month to this instant 
         /// </summary>
@@ -115,21 +125,33 @@ namespace KCalendar
         /// <returns>MemberwiseClone of this instant after calculate</returns>
         public virtual ICalendar AddMonth(int month)
         {
-            int r;
-            while (true)
+            if (month < 1)
             {
-                if (month == 0) break;
-                if (month <= MonthCount)
-                {
-                    Month = ChangeMonth(month);
-                    break;
-                }
-                r = month / MonthCount;
-                Year += r;
-                month -= (r * MonthCount);
+                return this;
             }
+
+            if ((Month.Index + month) <= MonthCount)
+            {
+                Month = ChangeMonth(month);
+                return (ICalendar)MemberwiseClone();
+            }
+
+            // Calculate new month and year
+            var newMonth = (Month.Index + month) % MonthCount;
+            var newYear = Year + (Month.Index + month - 1) / MonthCount;
+
+            // Adjust for the case where newMonth is 0
+            if (newMonth == 0)
+            {
+                newMonth = MonthCount;
+                newYear--;
+            }
+
+            Year = newYear;
+            Month = ChangeMonth(newMonth);
             return (ICalendar)MemberwiseClone();
         }
+
         #endregion addMonth
 
         public virtual ICalendar AddYear(int year)
@@ -146,6 +168,7 @@ namespace KCalendar
         }
 
         public abstract double DateToJulian(ICalendar calendarDate);
+
         public virtual ICalendar CastTo(ICalendar iCalendar)
         {
             if (iCalendar == null) throw new Exception("");
@@ -156,8 +179,9 @@ namespace KCalendar
         {
             if (month < 1 && month > MonthCount)
                 throw new Exception("");
-            return CalendarCulture.GetMonth(month);//-1
+            return CalendarCulture.GetMonth(month); //-1
         }
+
         /// <summary>
         /// Converts the string representation of a date format to its Calendar date equivalent.
         /// </summary>
@@ -171,6 +195,7 @@ namespace KCalendar
             {
                 throw new Exception("Format of string is not a date format!");
             }
+
             var tmp = date.Replace('\\', '/').Split('/');
             if (tmp == null) throw new Exception("Date Not in correct format!");
             if (tmp[2].Length > tmp[0].Length)
@@ -185,14 +210,17 @@ namespace KCalendar
                 Month = GetMonthInfo(Convert.ToInt32(tmp[1]));
                 Day = Convert.ToInt32(tmp[2]);
             }
+
             return (ICalendar)MemberwiseClone();
         }
+
         public DateTime ToDateTime()
         {
             var gd = (GregorianDate)CastTo(new GregorianDate());
             var dt = new DateTime(gd.Year, gd.Month, gd.Day);
             return dt;
         }
+
         public static DateTime ToDateTime(ICalendar calendarDate)
         {
             if (calendarDate == null) throw new ArgumentNullException(nameof(calendarDate));
@@ -216,6 +244,7 @@ namespace KCalendar
             {
                 throw new Exception("Format of string is not a date format!");
             }
+
             if (calendarType is GregorianDate)
             {
                 DateTime dt;
@@ -223,6 +252,7 @@ namespace KCalendar
                 DateTime.TryParse(date, cultureInfo, DateTimeStyles.None, out dt);
                 return new GregorianDate(dt);
             }
+
             var tmp = date.Replace('\\', '/').Replace("-", "/").Replace(".", "/").Replace("_", "/").Split('/');
             if (tmp[2].Length > tmp[0].Length)
             {
@@ -236,6 +266,7 @@ namespace KCalendar
                 calendarType.Month = calendarType.GetMonthInfo(Convert.ToInt32(tmp[1]));
                 calendarType.Day = Convert.ToInt32(tmp[2]);
             }
+
             return calendarType;
         }
 
@@ -248,12 +279,14 @@ namespace KCalendar
         {
             return CalendarCulture.ToString(this, format);
         }
+
         public static explicit operator DateTime(Calendar calendar)
         {
             return new DateTime(calendar.Year, calendar.Month, calendar.Day);
         }
 
         protected abstract void Init();
+
         public ICalendar FirstNextMonth(ICalendar destinationCalendar, int month)
         {
             var destinationDate = CastTo(destinationCalendar);
@@ -269,6 +302,7 @@ namespace KCalendar
             Day = day;
             return JulianToDate(JulianDay);
         }
+
         public ICalendar GotoDate(int month, int day)
         {
             Month = GetMonthInfo(month);
@@ -285,11 +319,12 @@ namespace KCalendar
         public ICalendar FirstWeekDayDate(ICalendar destinationCalendar)
         {
             var destinationDate = CastTo(destinationCalendar);
-            var dayofWeekDayIndex = destinationDate.DayofWeek.DayIndex;
+            var dayofWeekDayIndex = destinationDate.DayOfWeek.DayIndex;
             if (dayofWeekDayIndex == 7)
             {
                 return destinationDate;
             }
+
             destinationDate = destinationDate.AddDay(-1 * dayofWeekDayIndex);
             return destinationDate;
         }
@@ -297,11 +332,12 @@ namespace KCalendar
         public ICalendar LastWeekDayDate(ICalendar destinationCalendar)
         {
             var destinationDate = CastTo(destinationCalendar);
-            var dayofWeekDayIndex = destinationDate.DayofWeek.DayIndex;
+            var dayofWeekDayIndex = destinationDate.DayOfWeek.DayIndex;
             if (dayofWeekDayIndex == 7)
             {
                 return destinationDate.AddDay(6);
             }
+
             destinationDate = destinationDate.AddDay(6 - dayofWeekDayIndex);
             return destinationDate;
         }

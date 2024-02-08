@@ -1,6 +1,7 @@
 ﻿using System;
+using KCalendar.Core.Contract;
 
-namespace KCalendar.Culture
+namespace KCalendar.Core.Culture
 {
     public abstract class CalendarCulture
     {
@@ -116,8 +117,8 @@ namespace KCalendar.Culture
                 .Replace("MMM", calendar.Month.ShortName)
                 .Replace("MM", PaddingToLeft(calendar.Month.Index))
                 .Replace("M", calendar.Month.Index.ToString())
-                .Replace("dddd", calendar.DayofWeek.Name)
-                .Replace("ddd", calendar.DayofWeek.ShortName)
+                .Replace("dddd", calendar.DayOfWeek.Name)
+                .Replace("ddd", calendar.DayOfWeek.ShortName)
                 .Replace("dd", PaddingToLeft(calendar.Day))
                 .Replace("d", calendar.Day.ToString())
                 .Replace("tt", calendar.Hour > 12 ? calendar.CalendarCulture.PMName : calendar.CalendarCulture.AMName)
@@ -150,10 +151,10 @@ namespace KCalendar.Culture
                     return calendar.Year + "/" + PaddingToLeft(calendar.Month.Index) + "/" + PaddingToLeft(calendar.Day);
 
                 case DateFormat.FullDate:
-                    return calendar.DayofWeek.Name + " " + calendar.Day + " " + calendar.Month.Name + " " + calendar.Year;
+                    return calendar.DayOfWeek.Name + " " + calendar.Day + " " + calendar.Month.Name + " " + calendar.Year;
 
                 case DateFormat.LongDate:
-                    return calendar.DayofWeek.Name + " " + calendar.Day + " " + calendar.Month.Name;
+                    return calendar.DayOfWeek.Name + " " + calendar.Day + " " + calendar.Month.Name;
 
                 case DateFormat.ShortDate:
                     return calendar.Day + " " + calendar.Month.Index;
@@ -162,7 +163,7 @@ namespace KCalendar.Culture
             }
         }
 
-        public string PaddingToLeft(int x)
+        public static string PaddingToLeft(int x)
         {
             if (x < 10)
             {

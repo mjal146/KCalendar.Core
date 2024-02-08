@@ -1,7 +1,7 @@
 ﻿using System;
-using KCalendar.Culture;
+using KCalendar.Core.Culture;
 
-namespace KCalendar
+namespace KCalendar.Core.Contract
 {
     public interface ICalendar
     {
@@ -16,7 +16,7 @@ namespace KCalendar
         double JulianDay { get; }
         bool IsLeap { get; }
         int DayOfYear { get; }
-        IWeek DayofWeek { get; }
+        IWeek DayOfWeek { get; }
         CalendarCulture CalendarCulture { get; set; }
         ICalendarLeap LeapAlgorithm { get; set; }
         ICalendar JulianToDate(double julianNumber);

@@ -1,9 +1,8 @@
-﻿ 
-using System;
+﻿using System;
 
-namespace KCalendar
+namespace KCalendar.Core
 {
-    public class CalendarExceptions: Exception
+    public class CalendarExceptions : Exception
     {
     }
 }

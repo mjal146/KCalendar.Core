@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KCalendar
+namespace KCalendar.Core
 {
     public abstract class PositionalAstronomy
     {
@@ -155,7 +155,7 @@ namespace KCalendar
                          simply return the J2000 value of the obliquity, which
                          happens to be almost precisely the mean.  */
 
-        readonly double[] _oterms = {
+        private readonly double[] _oterms = {
             -4680.93,
            -1.55,
          1999.25,
@@ -237,7 +237,7 @@ namespace KCalendar
             2, -1, 0, 2, 2
         };
 
-        readonly double[] _nutArgCoeff = {
+        private readonly double[] _nutArgCoeff = {
             -171996, -1742, 92095, 89,          /*  0,  0,  0,  0,  1 */
              -13187, -16, 5736, -31,          /* -2,  0,  0,  2,  2 */
               -2274, -2, 977, -5,          /*  0,  0,  0,  2,  2 */
@@ -427,7 +427,7 @@ namespace KCalendar
         /*  Table of observed Delta T values at the beginning of
             even numbered years from 1620 through 2002.  */
 
-        readonly double[] _deltaTtab = {
+        private readonly double[] _deltaTtab = {
     121, 112, 103, 95, 88, 82, 77, 72, 68, 63, 60, 56, 53, 51, 48, 46,
     44, 42, 40, 38, 35, 33, 31, 29, 26, 24, 22, 20, 18, 16, 14, 12,
     11, 10, 9, 8, 7, 7, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9, 9, 10, 10, 10,

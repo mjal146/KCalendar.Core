@@ -1,6 +1,8 @@
-﻿namespace KCalendar
+﻿using KCalendar.Core.Contract;
+
+namespace KCalendar.Core
 {
-    class PersianBirashkLeap : ICalendarLeap
+    internal class PersianBirashkLeap : ICalendarLeap
     {
         public bool IsLeap(ICalendar date)
         {

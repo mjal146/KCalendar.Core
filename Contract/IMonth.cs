@@ -1,4 +1,4 @@
-﻿namespace KCalendar
+﻿namespace KCalendar.Core.Contract
 {
     public class IMonth
     {

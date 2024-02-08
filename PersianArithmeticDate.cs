@@ -1,7 +1,8 @@
 ﻿using System;
-using KCalendar.Culture;
+using KCalendar.Core.Contract;
+using KCalendar.Core.Culture;
 
-namespace KCalendar
+namespace KCalendar.Core
 {
    public  class PersianArithmeticDate : Calendar
     {

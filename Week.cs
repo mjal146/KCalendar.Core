@@ -1,4 +1,6 @@
-﻿namespace KCalendar
+﻿using KCalendar.Core.Contract;
+
+namespace KCalendar.Core
 {
     public class Week : IWeek
     {
